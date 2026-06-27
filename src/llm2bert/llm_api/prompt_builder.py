@@ -103,17 +103,18 @@ class PromptBuilder:
 
         return prompts
 
-    def build_prompts_from_csv(self, csv_path: str) -> List[str]:
+    def build_prompts_from_csv(self, csv_path: str, nrows: int = None) -> List[str]:
         """
         从 CSV 文件批量构建提示词
 
         Args:
             csv_path: CSV 文件路径
+            nrows: 要读取的行数，None 表示读取所有行
 
         Returns:
             提示词列表
         """
-        df = pd.read_csv(csv_path)
+        df = pd.read_csv(csv_path, low_memory=False, nrows=nrows)
         return self.build_prompts_from_dataframe(df)
 
     def build_prompts_with_metadata(self, df: pd.DataFrame) -> List[Dict[str, Any]]:

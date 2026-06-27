@@ -22,10 +22,9 @@ from openai import AsyncOpenAI, APIError, APIConnectionError, RateLimitError
 from tqdm import tqdm
 
 # 修复 Windows 编码
-if sys.platform == "win32":
-    import io
-
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+# if sys.platform == "win32":
+#     import io
+#     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 
 
 load_dotenv()
@@ -84,7 +83,6 @@ class CacheDB:
                     "usage_prompt_tokens": row["usage_prompt_tokens"],
                     "usage_completion_tokens": row["usage_completion_tokens"],
                     "usage_total_tokens": row["usage_total_tokens"],
-                    "from_cache": True,
                 }
         return None
 
@@ -103,7 +101,7 @@ class CacheDB:
             with sqlite3.connect(self.db_path) as conn:
                 conn.execute(
                     """
-                    INSERT OR REPLACE INTO cache
+                    INSERT OR IGNORE INTO cache
                     (prompt_hash, prompt, model, response,
                      usage_prompt_tokens, usage_completion_tokens, usage_total_tokens)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -129,6 +127,39 @@ class CacheDB:
             cursor = conn.execute("SELECT COUNT(*) FROM cache")
             total = cursor.fetchone()[0]
             return {"total_cached": total}
+
+    def get_all(self, limit: Optional[int] = None) -> List[Dict[str, Any]]:
+        """
+        读取数据库中的所有数据
+
+        Args:
+            limit: 限制读取的条数，None 表示读取所有
+
+        Returns:
+            List[Dict]: 包含所有缓存数据的列表，每条数据格式为:
+                {
+                    'id': int,
+                    'prompt_hash': str,
+                    'prompt': str,
+                    'model': str,
+                    'response': str,
+                    'created_at': str,
+                    'usage_prompt_tokens': int,
+                    'usage_completion_tokens': int,
+                    'usage_total_tokens': int
+                }
+        """
+        with sqlite3.connect(self.db_path) as conn:
+            conn.row_factory = sqlite3.Row
+            if limit is not None:
+                cursor = conn.execute(
+                    "SELECT * FROM cache ORDER BY created_at DESC LIMIT ?",
+                    (limit,),
+                )
+            else:
+                cursor = conn.execute("SELECT * FROM cache ORDER BY created_at DESC")
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
 
 
 # ============================================
@@ -172,7 +203,6 @@ class CachedAPIClient:
         Returns:
             dict: {
                 'response': str,
-                'from_cache': bool,
                 'success': bool,
                 'error': Optional[str],
             }
@@ -185,7 +215,6 @@ class CachedAPIClient:
             self.stats["cache_hits"] += 1
             return {
                 "response": cached["response"],
-                "from_cache": True,
                 "success": True,
                 "error": None,
             }
@@ -214,7 +243,6 @@ class CachedAPIClient:
                     self.stats["api_calls"] += 1
                     return {
                         "response": content,
-                        "from_cache": False,
                         "success": True,
                         "error": None,
                     }
@@ -227,7 +255,6 @@ class CachedAPIClient:
                         self.stats["failures"] += 1
                         return {
                             "response": None,
-                            "from_cache": False,
                             "success": False,
                             "error": str(e),
                         }
@@ -235,7 +262,6 @@ class CachedAPIClient:
                     self.stats["failures"] += 1
                     return {
                         "response": None,
-                        "from_cache": False,
                         "success": False,
                         "error": str(e),
                     }
@@ -249,11 +275,15 @@ class CachedAPIClient:
 async def main():
     """主程序"""
     # 初始化客户端
+    if not os.getenv("api_key") or not os.getenv("base_url") or not os.getenv("model"):
+        print("请在 .env 文件中设置 api_key, base_url, model")
+        return
+
     client = CachedAPIClient(
         api_key=os.getenv("api_key"),
         base_url=os.getenv("base_url"),
         model=os.getenv("model"),
-        db_path="api_cache.db",
+        db_path=os.getenv("db_path"),
         max_concurrent=10,
         max_retries=3,
     )
@@ -288,22 +318,20 @@ async def main():
     print("=" * 60)
 
     success_count = sum(1 for r in results if r["success"])
-    cache_hit_count = sum(1 for r in results if r["from_cache"])
 
     print(f"总请求数: {len(results)}")
     print(f"成功: {success_count}")
     print(f"失败: {len(results) - success_count}")
-    print(f"缓存命中: {cache_hit_count}")
+    print(f"缓存命中: {client.stats['cache_hits']}")
     print(f"API 调用: {client.stats['api_calls']}")
     print(f"当前缓存总数: {client.cache.get_stats()['total_cached']}")
 
     print("\n详细结果:")
     for i, (prompt, result) in enumerate(zip(prompts, results)):
-        status = "[CACHE]" if result["from_cache"] else "[API]"
         if result["success"]:
             # 只显示前 50 个字符
             resp_preview = str(result["response"])[:50].replace("\n", " ")
-            print(f"{i:2d} {status} {prompt:20} -> {resp_preview}...")
+            print(f"{i:2d} {prompt:20} -> {resp_preview}...")
         else:
             print(f"{i:2d} [FAIL] {prompt:20} -> ERROR: {result['error']}")
 
