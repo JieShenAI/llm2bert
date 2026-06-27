@@ -11,6 +11,7 @@
 import os
 import asyncio
 import sys
+import json
 import hashlib
 import sqlite3
 from pathlib import Path
@@ -51,6 +52,7 @@ class CacheDB:
                     prompt TEXT NOT NULL,
                     model TEXT NOT NULL,
                     response TEXT NOT NULL,
+                    attr TEXT,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     usage_prompt_tokens INTEGER,
                     usage_completion_tokens INTEGER,
@@ -91,26 +93,30 @@ class CacheDB:
         prompt: str,
         model: str,
         response: str,
+        attr: Optional[Dict[str, Any]] = None,
         usage_prompt_tokens: int = 0,
         usage_completion_tokens: int = 0,
         usage_total_tokens: int = 0,
     ):
         """保存结果到缓存"""
         prompt_hash = self._hash_prompt(prompt, model)
+        # 将 attr 转换为 JSON 字符串
+        attr_json = json.dumps(attr, ensure_ascii=False) if attr is not None else None
         try:
             with sqlite3.connect(self.db_path) as conn:
                 conn.execute(
                     """
                     INSERT OR IGNORE INTO cache
-                    (prompt_hash, prompt, model, response,
+                    (prompt_hash, prompt, model, response, attr,
                      usage_prompt_tokens, usage_completion_tokens, usage_total_tokens)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                     (
                         prompt_hash,
                         prompt,
                         model,
                         response,
+                        attr_json,
                         usage_prompt_tokens,
                         usage_completion_tokens,
                         usage_total_tokens,
@@ -143,6 +149,7 @@ class CacheDB:
                     'prompt': str,
                     'model': str,
                     'response': str,
+                    'attr': str (JSON),
                     'created_at': str,
                     'usage_prompt_tokens': int,
                     'usage_completion_tokens': int,
@@ -196,9 +203,15 @@ class CachedAPIClient:
         self,
         prompt: str,
         model: Optional[str] = None,
+        attr: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         """
         发送聊天请求，带缓存
+
+        Args:
+            prompt: 提示词
+            model: 模型名称
+            attr: 附加属性字典，会保存到数据库的 attr 字段
 
         Returns:
             dict: {
@@ -235,6 +248,7 @@ class CachedAPIClient:
                         prompt=prompt,
                         model=model,
                         response=content,
+                        attr=attr,
                         usage_prompt_tokens=usage.prompt_tokens if usage else 0,
                         usage_completion_tokens=usage.completion_tokens if usage else 0,
                         usage_total_tokens=usage.total_tokens if usage else 0,

@@ -240,14 +240,26 @@ class LLMParser:
 
             parsed = self.parse_response(response_str)
 
-            results.append({
+            result = {
                 "prompt": prompt,
                 "llm_answer": parsed["llm_answer"],
                 "label": parsed["label"],
                 "reason": parsed["reason"],
                 "success": parsed["success"],
                 "error": parsed["error"],
-            })
+            }
+
+            # 解析 attr 字段
+            attr_str = record.get("attr")
+            if attr_str:
+                try:
+                    attr_dict = json.loads(attr_str)
+                    if isinstance(attr_dict, dict):
+                        result["attr"] = attr_dict
+                except (json.JSONDecodeError, TypeError):
+                    pass
+
+            results.append(result)
 
         return results
 
@@ -274,6 +286,13 @@ class LLMParser:
         if not include_errors:
             parsed_results = [r for r in parsed_results if r["success"]]
 
+        # 收集所有 attr 的 key
+        attr_keys = set()
+        for r in parsed_results:
+            if "attr" in r and isinstance(r["attr"], dict):
+                attr_keys.update(r["attr"].keys())
+        attr_keys = sorted(attr_keys)
+
         # 构建 DataFrame
         data = []
         for r in parsed_results:
@@ -284,6 +303,10 @@ class LLMParser:
             }
             if include_reason:
                 row["reason"] = r["reason"]
+            # 添加 attr 字段
+            if "attr" in r and isinstance(r["attr"], dict):
+                for key in attr_keys:
+                    row[key] = r["attr"].get(key)
             data.append(row)
 
         df = pd.DataFrame(data)
