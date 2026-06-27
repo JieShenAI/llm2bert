@@ -65,14 +65,13 @@ class CacheDB:
             conn.commit()
 
     @staticmethod
-    def _hash_prompt(prompt: str, model: str) -> str:
+    def _hash_prompt(prompt: str) -> str:
         """生成 prompt 的哈希值"""
-        combined = f"{model}:{prompt}"
-        return hashlib.sha256(combined.encode("utf-8")).hexdigest()
+        return hashlib.sha256(prompt.encode("utf-8")).hexdigest()
 
-    def get(self, prompt: str, model: str) -> Optional[Dict[str, Any]]:
+    def get(self, prompt: str) -> Optional[Dict[str, Any]]:
         """从缓存获取结果"""
-        prompt_hash = self._hash_prompt(prompt, model)
+        prompt_hash = self._hash_prompt(prompt)
         with sqlite3.connect(self.db_path) as conn:
             conn.row_factory = sqlite3.Row
             cursor = conn.execute(
@@ -99,7 +98,7 @@ class CacheDB:
         usage_total_tokens: int = 0,
     ):
         """保存结果到缓存"""
-        prompt_hash = self._hash_prompt(prompt, model)
+        prompt_hash = self._hash_prompt(prompt)
         # 将 attr 转换为 JSON 字符串
         attr_json = json.dumps(attr, ensure_ascii=False) if attr is not None else None
         try:
@@ -223,7 +222,7 @@ class CachedAPIClient:
         model = model or self.model
 
         # 1. 先查缓存
-        cached = self.cache.get(prompt, model)
+        cached = self.cache.get(prompt)
         if cached:
             self.stats["cache_hits"] += 1
             return {
