@@ -1,0 +1,351 @@
+﻿prompt,llm_answer,label,reason,label_name,text,true_label
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Charley's Force Took Experts by Surprise (AP) AP - Hurricane Charley's 145-mph force took forecasters by surprise and showed just how shaky a science it still is to predict a storm's intensity  #151; even with all the latest satellite and radar technology.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sci/Tech,3.0,首先排除无关的Sports（体育）和Business（商业）类别，该文本核心围绕飓风强度预测的科学性展开，提到即使配备最新的卫星和雷达技术，预测风暴强度仍是不成熟的科学，内容属于科学技术相关领域，因此归类为Sci/Tech。,Sci/Tech,Charley's Force Took Experts by Surprise (AP) AP - Hurricane Charley's 145-mph force took forecasters by surprise and showed just how shaky a science it still is to predict a storm's intensity  #151; even with all the latest satellite and radar technology.,3
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: AOL to Sell Cheap PCs to Minorities and Seniors (Reuters) Reuters - America Online on Thursday said it\plans to sell a low-priced PC targeting low-income and minority\households who agree to sign up for a year of dialup Internet\service.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Business,2.0,待分类文本报道的是美国在线公司推出低价电脑、绑定一年拨号上网服务的商业销售活动，不属于世界时政、体育、科技领域，因此分类为Business。,Sci/Tech,AOL to Sell Cheap PCs to Minorities and Seniors (Reuters) Reuters - America Online on Thursday said it\plans to sell a low-priced PC targeting low-income and minority\households who agree to sign up for a year of dialup Internet\service.,3
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: 'Madden,' 'ESPN' Football Score in Different Ways (Reuters) Reuters - Was absenteeism a little high\on Tuesday among the guys at the office? EA Sports would like\to think it was because ""Madden NFL 2005"" came out that day,\and some fans of the football simulation are rabid enough to\take a sick day to play it.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sports,1.0,该文本围绕EA Sports推出的橄榄球体育游戏《Madden NFL 2005》展开，内容属于体育相关范畴，因此分类为Sports。,Sci/Tech,"'Madden,' 'ESPN' Football Score in Different Ways (Reuters) Reuters - Was absenteeism a little high\on Tuesday among the guys at the office? EA Sports would like\to think it was because ""Madden NFL 2005"" came out that day,\and some fans of the football simulation are rabid enough to\take a sick day to play it.",3
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Missing June Deals Slow to Return for Software Cos. (Reuters) Reuters - The mystery of what went wrong for the\software industry in late June when sales stalled at more than\20 brand-name companies is not even close to being solved\although the third quarter is nearly halfway over.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Business,2.0,该文本围绕软件公司六月销售停滞的商业经营相关情况展开，核心是行业销售相关的商业议题，不属于科技研究、体育、国际时政类内容，因此归类为Business。,Sci/Tech,Missing June Deals Slow to Return for Software Cos. (Reuters) Reuters - The mystery of what went wrong for the\software industry in late June when sales stalled at more than\20 brand-name companies is not even close to being solved\although the third quarter is nearly halfway over.,3
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Iraq Halts Oil Exports from Main Southern Pipeline (Reuters) Reuters - Authorities have halted oil export\flows from the main pipeline in southern Iraq after\intelligence showed a rebel militia could strike\infrastructure, an oil official said on Saturday.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Business,2.0,待分类文本核心内容是伊拉克因安全威胁停止南部主要管道的石油出口，石油出口属于商业贸易领域的能源相关事件，符合Business类别的范畴，因此分类到该类别。,Business,"Iraq Halts Oil Exports from Main Southern Pipeline (Reuters) Reuters - Authorities have halted oil export\flows from the main pipeline in southern Iraq after\intelligence showed a rebel militia could strike\infrastructure, an oil official said on Saturday.",2
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Oil and Economy Cloud Stocks' Outlook (Reuters) Reuters - Soaring crude prices plus worries\about the economy and the outlook for earnings are expected to\hang over the stock market next week during the depth of the\summer doldrums.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Business,2.0,待分类文本围绕原油价格、经济担忧以及盈利前景对股票市场前景的影响展开讨论，内容属于商业经济领域，因此归类为Business。,Business,Oil and Economy Cloud Stocks' Outlook (Reuters) Reuters - Soaring crude prices plus worries\about the economy and the outlook for earnings are expected to\hang over the stock market next week during the depth of the\summer doldrums.,2
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Australian FM to visit North Korea for talks on nuclear crisis (AFP) AFP - Australia's foreign minister will pay a rare visit to North Korea this week for talks on its nuclear programme after creating a stir here by warning a North Korean missile would be able to hit Sydney.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",World,0.0,该文本内容是关于澳大利亚外长访问朝鲜讨论核危机的国际政治新闻，属于国际世界范畴的公共事件，符合World类别的特征，不属于体育、商业、科技领域的内容。,World,Australian FM to visit North Korea for talks on nuclear crisis (AFP) AFP - Australia's foreign minister will pay a rare visit to North Korea this week for talks on its nuclear programme after creating a stir here by warning a North Korean missile would be able to hit Sydney.,0
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Reds Knock Padres Out of Wild-Card Lead (AP) AP - Wily Mo Pena homered twice and drove in four runs, helping the Cincinnati Reds beat the San Diego Padres 11-5 on Saturday night. San Diego was knocked out of a share of the NL wild-card lead with the loss and Chicago's victory over Los Angeles earlier in the day.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sports,1.0,待分类文本内容围绕辛辛那提红人队与圣地亚哥教士队的棒球赛事展开，介绍了比赛结果与相关排名变化，属于体育相关内容，因此归类为Sports。,Sports,"Reds Knock Padres Out of Wild-Card Lead (AP) AP - Wily Mo Pena homered twice and drove in four runs, helping the Cincinnati Reds beat the San Diego Padres 11-5 on Saturday night. San Diego was knocked out of a share of the NL wild-card lead with the loss and Chicago's victory over Los Angeles earlier in the day.",1
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Democratic Senator Urges Energy Reform (AP) AP - Congress must pass legislation to protect the nation's electricity grid if it wants to avoid repeats of the devastating outages that rolled across eight states last year, Sen. Maria Cantwell, D-Wash., said Saturday.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",World,0.0,该文本核心内容是美国民主党参议员呼吁国会通过能源改革相关立法，属于政治新闻范畴，不属于体育、商业、科技领域内容，因此归类为World。,World,"Democratic Senator Urges Energy Reform (AP) AP - Congress must pass legislation to protect the nation's electricity grid if it wants to avoid repeats of the devastating outages that rolled across eight states last year, Sen. Maria Cantwell, D-Wash., said Saturday.",0
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Kerry leading Bush in key swing states (AFP) AFP - Although polls show the US presidential race a virtual dead heat, Democrat John Kerry appears to be gaining an edge over George W. Bush among the key states that could decide the outcome.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",World,0.0,该文本报道了美国总统选举中关键摇摆州的民调情况，属于世界政治新闻范畴，不属于体育、商业、科技领域，因此分类为World。,World,"Kerry leading Bush in key swing states (AFP) AFP - Although polls show the US presidential race a virtual dead heat, Democrat John Kerry appears to be gaining an edge over George W. Bush among the key states that could decide the outcome.",0
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Wall St. Bears Claw Back Into the Black  NEW YORK (Reuters) - Short-sellers, Wall Street's dwindling  band of ultra-cynics, are seeing green again.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Business,2.0,该文本围绕华尔街金融领域的空头交易相关商业内容展开，属于商业金融范畴，因此归类到Business类别。,Business,"Wall St. Bears Claw Back Into the Black  NEW YORK (Reuters) - Short-sellers, Wall Street's dwindling  band of ultra-cynics, are seeing green again.",2
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: USC Begins Season Where It Ended, at No. 1 (AP) AP - Southern California will begin defense of its first national title in 31 years as the No. 1 team in the nation. The Trojans earned the top spot in the preseason Associated Press poll released Saturday by receiving 48 of 65 first-place votes and 1,603 points.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sports,1.0,该文本核心内容是介绍南加州大学校队新赛季开赛前的体育排名情况，围绕体育赛事相关内容展开，因此分类为Sports。,Sports,"USC Begins Season Where It Ended, at No. 1 (AP) AP - Southern California will begin defense of its first national title in 31 years as the No. 1 team in the nation. The Trojans earned the top spot in the preseason Associated Press poll released Saturday by receiving 48 of 65 first-place votes and 1,603 points.",1
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Tough Race Ahead for Swimmer Phelps  ATHENS (Reuters) - Michael Phelps, his first gold medal  safely gathered in, eased through the next phase of his  monumental Olympic challenge in the heats of the 200 meters  freestyle Sunday but the immensity of the task ahead was clear.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sports,1.0,该文本是关于游泳运动员迈克尔·菲尔普斯奥运会游泳赛事的相关报道，内容属于体育领域，因此分类为Sports。,Sports,"Tough Race Ahead for Swimmer Phelps  ATHENS (Reuters) - Michael Phelps, his first gold medal  safely gathered in, eased through the next phase of his  monumental Olympic challenge in the heats of the 200 meters  freestyle Sunday but the immensity of the task ahead was clear.",1
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Tiger Runs Out of Steam After Storming Start  KOHLER, Wisconsin (Reuters) - Tiger Woods failed to make  the most of a red-hot start in the U.S. PGA Championship third  round on Saturday, having to settle for a three-under-par 69.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sports,1.0,待分类文本内容是关于高尔夫运动员泰格·伍兹在美国PGA锦标赛第三轮的赛事情况，属于体育领域相关内容，因此分类为Sports。,Sports,"Tiger Runs Out of Steam After Storming Start  KOHLER, Wisconsin (Reuters) - Tiger Woods failed to make  the most of a red-hot start in the U.S. PGA Championship third  round on Saturday, having to settle for a three-under-par 69.",1
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Hacker Cracks Apple's Streaming Technology (AP) AP - The Norwegian hacker famed for developing DVD encryption-cracking software has apparently struck again  #151; this time breaking the locks on Apple Computer Inc.'s wireless music streaming technology.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sci/Tech,3.0,待分类文本围绕黑客破解苹果公司的无线音乐流媒体技术展开，内容属于科学技术领域相关话题，因此归类为Sci/Tech。,Sci/Tech,Hacker Cracks Apple's Streaming Technology (AP) AP - The Norwegian hacker famed for developing DVD encryption-cracking software has apparently struck again  #151; this time breaking the locks on Apple Computer Inc.'s wireless music streaming technology.,3
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Colander Misses Chance to Emulate Jones  ATHENS (Reuters) - But for a decision that enraged her  coach, LaTasha Colander might have been the Marion Jones of the  Athens Olympics.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sports,1.0,待分类文本内容围绕雅典奥运会的运动员相关体育赛事展开，属于体育领域相关内容，因此分类到Sports类别。,Sports,"Colander Misses Chance to Emulate Jones  ATHENS (Reuters) - But for a decision that enraged her  coach, LaTasha Colander might have been the Marion Jones of the  Athens Olympics.",1
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: S.Koreans Clash with Police on Iraq Troop Dispatch (Reuters) Reuters - South Korean police used water cannon in\central Seoul Sunday to disperse at least 7,000 protesters\urging the government to reverse a controversial decision to\send more troops to Iraq.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",World,0.0,该文本报道了韩国民众因反对政府向伊拉克增兵的决定，在首尔与警方发生冲突的国际公共事件，不属于体育、商业、科技领域内容，因此归类为World。,World,"S.Koreans Clash with Police on Iraq Troop Dispatch (Reuters) Reuters - South Korean police used water cannon in\central Seoul Sunday to disperse at least 7,000 protesters\urging the government to reverse a controversial decision to\send more troops to Iraq.",0
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: European Download Services Go Mobile (Reuters) Reuters - The ability to download complete\tracks directly over cell-phone networks to mobile phones is\becoming a reality in Europe.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sci/Tech,3.0,待分类文本围绕欧洲新型移动下载服务展开，介绍了可通过手机网络直接向移动设备下载完整曲目的新技术应用，属于科技领域相关内容，因此分类到Sci/Tech类别。,Sci/Tech,European Download Services Go Mobile (Reuters) Reuters - The ability to download complete\tracks directly over cell-phone networks to mobile phones is\becoming a reality in Europe.,3
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Oracle Sales Data Seen Being Released (Reuters) Reuters - Oracle Corp. sales documents\detailing highly confidential information, such as which\companies receive discounts on Oracle's business software\products and the size of the discounts, are likely to be made\public, a federal judge said on Friday.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Business,2.0,该文本是围绕甲骨文公司的商业销售机密文件公开事项展开的商业新闻，不属于世界时政、体育、科学技术类内容，因此归类为Business。,Sci/Tech,"Oracle Sales Data Seen Being Released (Reuters) Reuters - Oracle Corp. sales documents\detailing highly confidential information, such as which\companies receive discounts on Oracle's business software\products and the size of the discounts, are likely to be made\public, a federal judge said on Friday.",3
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Palestinians in Israeli Jails Start Hunger Strike (Reuters) Reuters - Thousands of Palestinian\prisoners in Israeli jails began a hunger strike for better\conditions Sunday, but Israel's security minister said he\didn't care if they starved to death.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",World,0.0,该文本报道了巴勒斯坦囚犯在以色列监狱发起绝食的国际时政事件，属于世界新闻范畴，不属于体育、商业、科技领域内容，因此分类为World。,World,"Palestinians in Israeli Jails Start Hunger Strike (Reuters) Reuters - Thousands of Palestinian\prisoners in Israeli jails began a hunger strike for better\conditions Sunday, but Israel's security minister said he\didn't care if they starved to death.",0
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Iranian Will Not Meet Israeli in Olympics Due to Weight  ATHENS (Reuters) - A diplomatic wrangle of Olympic  proportions was avoided Sunday when Iranian world judo champion  Arash Miresmaeili failed to make the weight for his clash with  an Israeli opponent.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sports,1.0,待分类文本内容围绕奥运会柔道项目的相关赛事事件展开，核心属于体育领域范畴，因此分类为Sports。,Sports,Iranian Will Not Meet Israeli in Olympics Due to Weight  ATHENS (Reuters) - A diplomatic wrangle of Olympic  proportions was avoided Sunday when Iranian world judo champion  Arash Miresmaeili failed to make the weight for his clash with  an Israeli opponent.,1
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Oil and Economy Cloud Stocks' Outlook  NEW YORK (Reuters) - Soaring crude prices plus worries  about the economy and the outlook for earnings are expected to  hang over the stock market next week during the depth of the  summer doldrums.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Business,2.0,该文本围绕原油价格、经济担忧以及股票市场前景展开讨论，内容属于商业经济领域，因此分类为Business。,Business,Oil and Economy Cloud Stocks' Outlook  NEW YORK (Reuters) - Soaring crude prices plus worries  about the economy and the outlook for earnings are expected to  hang over the stock market next week during the depth of the  summer doldrums.,2
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Rwanda Troops Airlifted to Start AU Mission in Darfur (Reuters) Reuters - Rwandan troops were airlifted on Sunday\to Sudan's Darfur as the first foreign force there, mandated to\protect observers monitoring a cease-fire between the Sudanese\government and rebels in the troubled western region.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",World,0.0,该文本报道了卢旺达部队前往苏丹达尔富尔执行非盟任务的国际时政事件，属于世界新闻范畴，符合World类别的内容定位，不属于体育、商业、科技类内容。,World,"Rwanda Troops Airlifted to Start AU Mission in Darfur (Reuters) Reuters - Rwandan troops were airlifted on Sunday\to Sudan's Darfur as the first foreign force there, mandated to\protect observers monitoring a cease-fire between the Sudanese\government and rebels in the troubled western region.",0
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Fed minutes show dissent over inflation (USATODAY.com) USATODAY.com - Retail sales bounced back a bit in July, and new claims for jobless benefits fell last week, the government said Thursday, indicating the economy is improving from a midsummer slump.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Business,2.0,该文本围绕美联储通胀分歧、美国零售销售数据、失业救济申领数据及经济走势等商业经济相关话题展开，符合Business类别的内容范畴。,Business,"Fed minutes show dissent over inflation (USATODAY.com) USATODAY.com - Retail sales bounced back a bit in July, and new claims for jobless benefits fell last week, the government said Thursday, indicating the economy is improving from a midsummer slump.",2
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Carlyle Looks Toward Commercial Aerospace (Reuters) Reuters - Private investment firm Carlyle Group,\which has a reputation for making well-timed and occasionally\controversial plays in the defense industry, has quietly placed\its bets on another part of the market.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Business,2.0,该文本围绕私人投资公司凯雷集团的商业投资布局展开，讲述其在商业航空领域的市场投资动作，内容属于商业投资范畴，因此分类为Business。,Business,"Carlyle Looks Toward Commercial Aerospace (Reuters) Reuters - Private investment firm Carlyle Group,\which has a reputation for making well-timed and occasionally\controversial plays in the defense industry, has quietly placed\its bets on another part of the market.",2
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Safety Net (Forbes.com) Forbes.com - After earning a PH.D. in Sociology, Danny Bazil Riley started to work as the general manager at a commercial real estate firm at an annual base salary of  #36;70,000. Soon after, a financial planner stopped by his desk to drop off brochures about insurance benefits available through his employer. But, at 32, ""buying insurance was the furthest thing from my mind,"" says Riley.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Business,2.0,该文本出自商业媒体福布斯，内容围绕职场薪资、雇主提供的金融保险产品展开，属于财经商业相关内容，符合商业类别的范畴。,Business,"Safety Net (Forbes.com) Forbes.com - After earning a PH.D. in Sociology, Danny Bazil Riley started to work as the general manager at a commercial real estate firm at an annual base salary of  #36;70,000. Soon after, a financial planner stopped by his desk to drop off brochures about insurance benefits available through his employer. But, at 32, ""buying insurance was the furthest thing from my mind,"" says Riley.",2
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Venezuelans Vote Early in Referendum on Chavez Rule (Reuters) Reuters - Venezuelans turned out early\and in large numbers on Sunday to vote in a historic referendum\that will either remove left-wing President Hugo Chavez from\office or give him a new mandate to govern for the next two\years.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",World,0.0,该文本是路透社对委内瑞拉关于总统执政的全民公投这一国际政治事件的报道，属于世界新闻范畴，不符合体育、商业、科技类别的特征，因此归类为World。,World,Venezuelans Vote Early in Referendum on Chavez Rule (Reuters) Reuters - Venezuelans turned out early\and in large numbers on Sunday to vote in a historic referendum\that will either remove left-wing President Hugo Chavez from\office or give him a new mandate to govern for the next two\years.,0
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Stocks End Up, But Near Year Lows (Reuters) Reuters - Stocks ended slightly higher on Friday\but stayed near lows for the year as oil prices surged past  #36;46\a barrel, offsetting a positive outlook from computer maker\Dell Inc. (DELL.O)
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Business,2.0,待分类文本主要围绕股票市场收盘表现、油价对股市的影响以及戴尔公司的市场前景展开，内容属于商业金融领域，因此归类为Business。,Business,"Stocks End Up, But Near Year Lows (Reuters) Reuters - Stocks ended slightly higher on Friday\but stayed near lows for the year as oil prices surged past  #36;46\a barrel, offsetting a positive outlook from computer maker\Dell Inc. (DELL.O)",2
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Dreaming done, NBA stars awaken to harsh Olympic reality (AFP) AFP - National Basketball Association players trying to win a fourth consecutive Olympic gold medal for the United States have gotten the wake-up call that the ""Dream Team"" days are done even if supporters have not.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sports,1.0,该文本围绕NBA球星参与奥运会篮球赛事的相关内容展开，属于体育领域的话题，因此分类为Sports。,Sports,"Dreaming done, NBA stars awaken to harsh Olympic reality (AFP) AFP - National Basketball Association players trying to win a fourth consecutive Olympic gold medal for the United States have gotten the wake-up call that the ""Dream Team"" days are done even if supporters have not.",1
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Indians Beat Twins 7-1, Nearing AL Lead (AP) AP - The Cleveland Indians pulled within one game of the AL Central lead, scoring four runs in the first inning and beating the Minnesota Twins 7-1 Saturday night behind home runs by Travis Hafner and Victor Martinez.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sports,1.0,待分类文本是关于职业棒球赛事的比赛结果报道，内容属于体育领域，因此分类到Sports类别。,Sports,"Indians Beat Twins 7-1, Nearing AL Lead (AP) AP - The Cleveland Indians pulled within one game of the AL Central lead, scoring four runs in the first inning and beating the Minnesota Twins 7-1 Saturday night behind home runs by Travis Hafner and Victor Martinez.",1
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Apple to open second Japanese retail store this month (MacCentral) MacCentral - Apple Computer Inc. will open its second Japanese retail store later this month in the western Japanese city of Osaka, it said Thursday.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sci/Tech,3.0,文本报道了科技企业苹果电脑公司在日本开设第二家零售店的相关动态，属于科技领域相关资讯，不属于世界新闻、体育、泛商业新闻范畴，因此分类为Sci/Tech。,Sci/Tech,"Apple to open second Japanese retail store this month (MacCentral) MacCentral - Apple Computer Inc. will open its second Japanese retail store later this month in the western Japanese city of Osaka, it said Thursday.",3
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Edwards Calls for Changes to Drug Plans (AP) AP - Democratic vice presidential candidate John Edwards called for changes to prescription drug programs and praised running mate John Kerry's military and government service at an outdoor campaign rally here Saturday.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",World,0.0,该文本是关于美国民主党副总统候选人竞选活动的政治类新闻，不属于体育、商业、科技领域，因此归类为World。,World,Edwards Calls for Changes to Drug Plans (AP) AP - Democratic vice presidential candidate John Edwards called for changes to prescription drug programs and praised running mate John Kerry's military and government service at an outdoor campaign rally here Saturday.,0
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: AL Wrap: Olerud Cheers Yankees by Sinking Ex-Team  NEW YORK (Reuters) - John Olerud sunk his former team by  recording a two-run single in the eighth inning to drive in the  go-ahead runs which earned the New York Yankees a 6-4 win over  the host Seattle Mariners in the American League Saturday.   
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sports,1.0,该文本是职业棒球比赛的赛事报道，内容围绕棒球比赛的过程和结果展开，属于体育相关内容，因此分类为Sports。,Sports,AL Wrap: Olerud Cheers Yankees by Sinking Ex-Team  NEW YORK (Reuters) - John Olerud sunk his former team by  recording a two-run single in the eighth inning to drive in the  go-ahead runs which earned the New York Yankees a 6-4 win over  the host Seattle Mariners in the American League Saturday.   ,1
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: No Need for OPEC to Pump More-Iran Gov  TEHRAN (Reuters) - OPEC can do nothing to douse scorching  oil prices when markets are already oversupplied by 2.8 million  barrels per day (bpd) of crude, Iran's OPEC governor said  Saturday, warning that prices could fall sharply.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Business,2.0,该文本围绕原油市场供应、石油价格以及OPEC的石油生产决策展开，属于商业经济领域的相关内容，因此分类为Business。,Business,"No Need for OPEC to Pump More-Iran Gov  TEHRAN (Reuters) - OPEC can do nothing to douse scorching  oil prices when markets are already oversupplied by 2.8 million  barrels per day (bpd) of crude, Iran's OPEC governor said  Saturday, warning that prices could fall sharply.",2
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Sun's Looking Glass Provides 3D View (PC World) PC World - Developers get early code for new operating system 'skin' still being crafted.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sci/Tech,3.0,待分类文本内容围绕3D视图、新操作系统皮肤的开发相关科技内容展开，属于科技领域范畴，因此分类为Sci/Tech,Sci/Tech,Sun's Looking Glass Provides 3D View (PC World) PC World - Developers get early code for new operating system 'skin' still being crafted.,3
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Kerry Campaign Helping With Fla. Recovery (AP) AP - Democratic presidential candidate John Kerry does not plan to visit Florida in the aftermath of Hurricane Charley because he's concerned his campaign entourage could distract from recovery efforts, he said Saturday.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",World,0.0,该文本是关于美国政治人物约翰·克里在飓风过后佛罗里达灾后恢复相关的新闻内容，不属于体育、商业、科技领域，因此归类为World。,World,"Kerry Campaign Helping With Fla. Recovery (AP) AP - Democratic presidential candidate John Kerry does not plan to visit Florida in the aftermath of Hurricane Charley because he's concerned his campaign entourage could distract from recovery efforts, he said Saturday.",0
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Companies Approve New High-Capacity Disc Format (Reuters) Reuters - A group of consumer electronics\makers said on Wednesday they approved the format for a new\generation of discs that can store five times the data of DVDs\at the same cost -- enough to put a full season of ""The\Sopranos"" on one disc.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",,,,Sci/Tech,"Companies Approve New High-Capacity Disc Format (Reuters) Reuters - A group of consumer electronics\makers said on Wednesday they approved the format for a new\generation of discs that can store five times the data of DVDs\at the same cost -- enough to put a full season of ""The\Sopranos"" on one disc.",3
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Oil prices soar to all-time record, posing new menace to US economy (AFP) AFP - Tearaway world oil prices, toppling records and straining wallets, present a new economic menace barely three months before the US presidential elections.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Business,2.0,该文本核心内容围绕油价飙升创纪录，对美国经济造成威胁展开，内容属于经济商业相关领域，因此分类为Business。,Business,"Oil prices soar to all-time record, posing new menace to US economy (AFP) AFP - Tearaway world oil prices, toppling records and straining wallets, present a new economic menace barely three months before the US presidential elections.",2
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Missouri Attorney General Sues EPA (AP) AP - Missouri's attorney general sued the federal environmental agency on Friday, saying it is behind on testing the state's air for lead as required by law.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",World,0.0,该文本是关于美国密苏里州总检察长起诉联邦环保机构的时政公共事务新闻，不属于体育、商业、科技领域，因此归类为World。,World,"Missouri Attorney General Sues EPA (AP) AP - Missouri's attorney general sued the federal environmental agency on Friday, saying it is behind on testing the state's air for lead as required by law.",0
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Bomb at India Independence Parade Kills 15 (AP) AP - A bomb exploded during an Independence Day parade in India's remote northeast Sunday, killing at least 15 people, including schoolchildren, while a rocket attack during a celebration at a school in the separatist region of Kashmir injured 17, officials said.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",World,0.0,该文本报道了发生在印度的爆炸袭击事件，属于国际时事新闻，不属于体育、商业、科技领域，因此归类为World。,World,"Bomb at India Independence Parade Kills 15 (AP) AP - A bomb exploded during an Independence Day parade in India's remote northeast Sunday, killing at least 15 people, including schoolchildren, while a rocket attack during a celebration at a school in the separatist region of Kashmir injured 17, officials said.",0
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Rwandan Troops Arrive in Darfur (AP) AP - Dozens of Rwandan soldiers flew into Sudan's troubled Darfur region Sunday, the first foreign armed force deployed in the area since Arab militiamen began a rampage against black African farmers, killing thousands.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",World,0.0,该文本报道了卢旺达部队进驻苏丹达尔富尔地区的国际时政事件，属于世界新闻范畴，因此分类为World。,World,"Rwandan Troops Arrive in Darfur (AP) AP - Dozens of Rwandan soldiers flew into Sudan's troubled Darfur region Sunday, the first foreign armed force deployed in the area since Arab militiamen began a rampage against black African farmers, killing thousands.",0
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Seven Georgian soldiers wounded as South Ossetia ceasefire violated (AFP) AFP - Sporadic gunfire and shelling took place overnight in the disputed Georgian region of South Ossetia in violation of a fragile ceasefire, wounding seven Georgian servicemen.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",World,0.0,该文本报道了格鲁吉亚争议地区南奥塞梯发生违反停火协议、造成人员受伤的国际政治军事事件，属于国际时事新闻范畴，因此分类为World。,World,"Seven Georgian soldiers wounded as South Ossetia ceasefire violated (AFP) AFP - Sporadic gunfire and shelling took place overnight in the disputed Georgian region of South Ossetia in violation of a fragile ceasefire, wounding seven Georgian servicemen.",0
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Open Source Apps Developer SugarCRM Releases Sugar.Sales 1.1 (TechWeb) TechWeb - News - August 13, 2004
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sci/Tech,3.0,待分类文本内容是开源应用开发商发布新的应用产品，属于科技领域相关内容，因此分类到Sci/Tech类别,Sci/Tech,"Open Source Apps Developer SugarCRM Releases Sugar.Sales 1.1 (TechWeb) TechWeb - News - August 13, 2004",3
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Galaxy, Crew Play to 0-0 Tie (AP) AP - Kevin Hartman made seven saves for Los Angeles, and Jon Busch had two saves for Columbus as the Galaxy and Crew played to a 0-0 tie Saturday night.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sports,1.0,待分类文本是关于足球赛事的赛况报道，内容属于体育领域，因此将其分类到Sports类别。,Sports,"Galaxy, Crew Play to 0-0 Tie (AP) AP - Kevin Hartman made seven saves for Los Angeles, and Jon Busch had two saves for Columbus as the Galaxy and Crew played to a 0-0 tie Saturday night.",1
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Italy's Pennetta Wins Idea Prokom Open (AP) AP - Italy's Flavia Pennetta won the Idea Prokom Open for her first WTA Tour title, beating Klara Koukalova of the Czech Republic 7-5, 3-6, 6-3 Saturday after French Open champion Anastasia Myskina withdrew before the semifinals because of a rib injury.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sports,1.0,待分类文本是对网球WTA巡回赛赛事赛果的体育新闻报道，内容属于体育领域，因此归类为Sports。,Sports,"Italy's Pennetta Wins Idea Prokom Open (AP) AP - Italy's Flavia Pennetta won the Idea Prokom Open for her first WTA Tour title, beating Klara Koukalova of the Czech Republic 7-5, 3-6, 6-3 Saturday after French Open champion Anastasia Myskina withdrew before the semifinals because of a rib injury.",1
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Money Funds Fell in Latest Week (AP) AP - Assets of the nation's retail money market mutual funds fell by  #36;1.17 billion in the latest week to  #36;849.98 trillion, the Investment Company Institute said Thursday.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",,,,Business,"Money Funds Fell in Latest Week (AP) AP - Assets of the nation's retail money market mutual funds fell by  #36;1.17 billion in the latest week to  #36;849.98 trillion, the Investment Company Institute said Thursday.",2
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Group to Propose New High-Speed Wireless Format (Reuters) Reuters - A group of technology companies\including Texas Instruments Inc. (TXN.N), STMicroelectronics\(STM.PA) and Broadcom Corp. (BRCM.O), on Thursday said they\will propose a new wireless networking standard up to 10 times\the speed of the current generation.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sci/Tech,3.0,该文本核心内容为多家科技企业将提议推出新一代高速无线网络标准，内容属于科技技术领域范畴，因此分类为Sci/Tech。,Sci/Tech,"Group to Propose New High-Speed Wireless Format (Reuters) Reuters - A group of technology companies\including Texas Instruments Inc. (TXN.N), STMicroelectronics\(STM.PA) and Broadcom Corp. (BRCM.O), on Thursday said they\will propose a new wireless networking standard up to 10 times\the speed of the current generation.",3
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Phelps, Thorpe Advance in 200 Freestyle (AP) AP - Michael Phelps took care of qualifying for the Olympic 200-meter freestyle semifinals Sunday, and then found out he had been added to the American team for the evening's 400 freestyle relay final. Phelps' rivals Ian Thorpe and Pieter van den Hoogenband and teammate Klete Keller were faster than the teenager in the 200 free preliminaries.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sports,1.0,待分类文本内容围绕奥运会游泳项目的预选赛晋级情况展开，讲述的是体育赛事相关内容，因此归类为Sports。,Sports,"Phelps, Thorpe Advance in 200 Freestyle (AP) AP - Michael Phelps took care of qualifying for the Olympic 200-meter freestyle semifinals Sunday, and then found out he had been added to the American team for the evening's 400 freestyle relay final. Phelps' rivals Ian Thorpe and Pieter van den Hoogenband and teammate Klete Keller were faster than the teenager in the 200 free preliminaries.",1
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: Wall St. Bears Claw Back Into the Black (Reuters) Reuters - Short-sellers, Wall Street's dwindling\band of ultra-cynics, are seeing green again.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Business,2.0,这段文本围绕华尔街卖空交易者、金融市场相关的财经内容展开，属于商业领域范畴，因此分类为Business。,Business,"Wall St. Bears Claw Back Into the Black (Reuters) Reuters - Short-sellers, Wall Street's dwindling\band of ultra-cynics, are seeing green again.",2
+"把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: NL Wrap: Jones Homers Twice as Braves Down Cards  NEW YORK (Reuters) - Chipper Jones cracked two homers and  Julio Franco's two-run double in the seventh inning drove in  the winning runs as the streaking Atlanta Braves downed the St.  Louis Cardinals 9-7 in the National League Saturday.
+    按照下述格式返回：
+    {
+        ""llm_answer"": ""类别名"",
+        ""reason"": ""简要说明为什么将文本分类到该类别中"",
+    }",Sports,1.0,该文本主要报道了亚特兰大勇士对阵圣路易斯红雀的棒球比赛赛况，内容属于体育领域，因此分类为Sports。,Sports,NL Wrap: Jones Homers Twice as Braves Down Cards  NEW YORK (Reuters) - Chipper Jones cracked two homers and  Julio Franco's two-run double in the seventh inning drove in  the winning runs as the streaking Atlanta Braves downed the St.  Louis Cardinals 9-7 in the National League Saturday.,1

@@ -14,23 +14,23 @@ from typing import Dict, Any, List, Optional
 from pathlib import Path
 import pandas as pd
 
-# 尝试导入 settings，如果失败则使用默认配置
-try:
-    import sys
-    sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-    import settings
-except ImportError:
-    # 默认配置
-    class DefaultSettings:
-        TASK_TYPE = "binary"
-        BINARY_CLASS_CONFIG = {
-            "positive_label": "是",
-            "negative_label": "否",
-        }
-        MULTICLASS_CONFIG = {
-            "classes": [],
-        }
-    settings = DefaultSettings()
+# # 尝试导入 settings，如果失败则使用默认配置
+# try:
+#     import sys
+#     sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+#     import settings
+# except ImportError:
+#     # 默认配置
+#     class DefaultSettings:
+#         TASK_TYPE = "binary"
+#         BINARY_CLASS_CONFIG = {
+#             "positive_label": "是",
+#             "negative_label": "否",
+#         }
+#         MULTICLASS_CONFIG = {
+#             "classes": [],
+#         }
+#     settings = DefaultSettings()
 
 
 class LLMParser:
@@ -50,22 +50,19 @@ class LLMParser:
             binary_config: 二分类配置，如果为 None 则从 settings 读取
             multiclass_config: 多类别分类配置，如果为 None 则从 settings 读取
         """
-        self.task_type = task_type or getattr(settings, "TASK_TYPE", "binary")
+        self.task_type = task_type
 
-        if binary_config is None:
-            self.binary_config = getattr(settings, "BINARY_CLASS_CONFIG", {
-                "positive_label": "是",
-                "negative_label": "否",
-            })
-        else:
-            self.binary_config = binary_config
+        if self.task_type == "binary":
+            if binary_config is None:
+                raise ValueError("二分类配置不能为空，请提供 binary_config")
+            else:
+                self.binary_config = binary_config
 
-        if multiclass_config is None:
-            self.multiclass_config = getattr(settings, "MULTICLASS_CONFIG", {
-                "classes": [],
-            })
-        else:
-            self.multiclass_config = multiclass_config
+        if self.task_type == "multiclass":
+            if multiclass_config is None:
+                raise ValueError("多类别分类配置不能为空，请提供 multiclass_config")
+            else:
+                self.multiclass_config = multiclass_config
 
         # 构建多类别分类的标签映射
         self._build_label_mapping()
@@ -110,7 +107,7 @@ class LLMParser:
 
         # 尝试用正则提取 JSON 部分
         # 匹配从 { 到 } 的内容，支持嵌套
-        json_pattern = r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}'
+        json_pattern = r"\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}"
         matches = re.findall(json_pattern, response_str)
 
         for match in matches:
@@ -203,10 +200,15 @@ class LLMParser:
             if text_normalized == label_normalized:
                 return idx
             # 包含关系
-            if label_normalized in text_normalized or text_normalized in label_normalized:
+            if (
+                label_normalized in text_normalized
+                or text_normalized in label_normalized
+            ):
                 return idx
 
-        raise ValueError(f"无法将 '{text}' 转换为标签，可用标签: {list(self.label_to_idx.keys())}")
+        raise ValueError(
+            f"无法将 '{text}' 转换为标签，可用标签: {list(self.label_to_idx.keys())}"
+        )
 
     def label_to_text(self, label: int) -> str:
         """
@@ -219,10 +221,14 @@ class LLMParser:
             文本标签
         """
         if label not in self.idx_to_label:
-            raise ValueError(f"标签 {label} 不在可用标签中: {list(self.idx_to_label.keys())}")
+            raise ValueError(
+                f"标签 {label} 不在可用标签中: {list(self.idx_to_label.keys())}"
+            )
         return self.idx_to_label[label]
 
-    def parse_database_records(self, records: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def parse_database_records(
+        self, records: List[Dict[str, Any]]
+    ) -> List[Dict[str, Any]]:
         """
         解析数据库中的所有记录
 
@@ -324,9 +330,10 @@ class LLMParser:
 # 便捷函数
 # ============================================
 
+
 def parse_and_export_from_db(
     db_path: str,
-    output_path: str,
+    output_filename: str,
     task_type: Optional[str] = None,
     binary_config: Optional[Dict[str, str]] = None,
     multiclass_config: Optional[Dict[str, List[str]]] = None,
@@ -371,14 +378,14 @@ def parse_and_export_from_db(
     parsed_results = parser.parse_database_records(records)
 
     # 3. 导出 CSV
-    output_path = parser.export_to_csv(
+    output_filename = parser.export_to_csv(
         parsed_results=parsed_results,
-        output_path=output_path,
+        output_path=output_filename,
         include_reason=include_reason,
         include_errors=include_errors,
     )
 
-    return output_path
+    return output_filename
 
 
 # ============================================
@@ -399,7 +406,7 @@ if __name__ == "__main__":
         binary_config={
             "positive_label": "是",
             "negative_label": "否",
-        }
+        },
     )
 
     test_responses = [
@@ -424,7 +431,7 @@ if __name__ == "__main__":
         task_type="multiclass",
         multiclass_config={
             "classes": ["体育", "财经", "科技", "娱乐"],
-        }
+        },
     )
 
     multiclass_responses = [
