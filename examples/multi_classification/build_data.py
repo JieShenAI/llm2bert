@@ -1,39 +1,60 @@
-from datasets import load_dataset
+from datasets import load_dataset, concatenate_datasets
 import pandas as pd
 
 ds = load_dataset("fancyzhx/ag_news")
 
-# print(ds)
-# 如何输出 ds label 对应的类别名？
+label_names = {0: "World", 1: "Sports", 2: "Business", 3: "Sci/Tech"}
 
-# 导出训练集50条数据，每个类别均衡选取
+# ============================================================
+# 1. 训练集：不均衡采样，模拟真实场景
+# ============================================================
 train_ds = ds["train"]
 
-# 按标签分组，每个类别选取12-13条（共50条）
-label_0 = train_ds.filter(lambda x: x["label"] == 0).select(range(13))
-label_1 = train_ds.filter(lambda x: x["label"] == 1).select(range(13))
-label_2 = train_ds.filter(lambda x: x["label"] == 2).select(range(12))
-label_3 = train_ds.filter(lambda x: x["label"] == 3).select(range(12))
+# 每个类别按不同数量采样（类别0最多，类别3最少 → 模拟不均衡分布）
+label_0 = train_ds.filter(lambda x: x["label"] == 0).select(range(1000))
+label_1 = train_ds.filter(lambda x: x["label"] == 1).select(range(800))
+label_2 = train_ds.filter(lambda x: x["label"] == 2).select(range(700))
+label_3 = train_ds.filter(lambda x: x["label"] == 3).select(range(300))
 
-# 合并所有数据
-from datasets import concatenate_datasets
-balanced_ds = concatenate_datasets([label_0, label_1, label_2, label_3])
+train_ds_subset = concatenate_datasets([label_0, label_1, label_2, label_3])
 
-# 转换为DataFrame
-df = pd.DataFrame(balanced_ds)
-
-# 添加类别名 (ag_news 数据集的标签: 0=World, 1=Sports, 2=Business, 3=Sci/Tech)
-
-#  'label': ClassLabel(names=['World', 'Sports', 'Business', 'Sci/Tech'])}
-label_names = {0: "World", 1: "Sports", 2: "Business", 3: "Sci/Tech"}
-df["label_name"] = df["label"].map(label_names)
+train_df = pd.DataFrame(train_ds_subset)
+train_df = train_df.rename(columns={"label": "true_label"})
+train_df["label_name"] = train_df["true_label"].map(label_names)
 
 # 打乱顺序
-df = df.sample(frac=1, random_state=42).reset_index(drop=True)
+train_df = train_df.sample(frac=1, random_state=42).reset_index(drop=True)
 
-# 保存为CSV
-output_path = "train_first_50.csv"
-df.to_csv(output_path, index=False, encoding="utf-8-sig")
-print(f"已导出训练集50条均衡数据到 {output_path}")
-print("类别分布:")
-print(df["label_name"].value_counts().sort_index())
+train_output = "train.csv"
+train_df.to_csv(train_output, index=False, encoding="utf-8-sig")
+print(f"已导出训练集（不均衡，共 {len(train_df)} 条）到 {train_output}")
+print("训练集类别分布:")
+print(train_df["label_name"].value_counts().sort_index())
+print()
+
+# ============================================================
+# 2. 测试集：均衡采样，用于公平评估
+# ============================================================
+test_ds = ds["test"]  # 7600 条，每类 1900 条
+
+# 每个类别取 200 条（共 800 条），均衡
+per_class = 200
+test_label_0 = test_ds.filter(lambda x: x["label"] == 0).select(range(per_class))
+test_label_1 = test_ds.filter(lambda x: x["label"] == 1).select(range(per_class))
+test_label_2 = test_ds.filter(lambda x: x["label"] == 2).select(range(per_class))
+test_label_3 = test_ds.filter(lambda x: x["label"] == 3).select(range(per_class))
+
+test_ds_subset = concatenate_datasets([test_label_0, test_label_1, test_label_2, test_label_3])
+
+test_df = pd.DataFrame(test_ds_subset)
+test_df = test_df.rename(columns={"label": "true_label"})
+test_df["label_name"] = test_df["true_label"].map(label_names)
+
+# 打乱顺序
+test_df = test_df.sample(frac=1, random_state=42).reset_index(drop=True)
+
+test_output = "test.csv"
+test_df.to_csv(test_output, index=False, encoding="utf-8-sig")
+print(f"已导出测试集（均衡，共 {len(test_df)} 条）到 {test_output}")
+print("测试集类别分布:")
+print(test_df["label_name"].value_counts().sort_index())
