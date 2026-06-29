@@ -28,8 +28,7 @@ from settings import (
     PROMPT_FORMAT,
     CSV_FILE,
     TASK_TYPE,
-    BINARY_CLASS_CONFIG,
-    # MULTICLASS_CONFIG,
+    MULTICLASS_CONFIG,
 )
 from llm2bert.llm_api.prompt_builder import PromptBuilder
 from llm2bert.llm_api.parser import LLMParser
@@ -45,7 +44,6 @@ def process_data(
     csv_file: str,
     prompt_format: str,
     task_type: str,
-    binary_config: Optional[Dict[str, str]] = None,
     multiclass_config: Optional[Dict[str, List[str]]] = None,
     output_file: Optional[str] = None,
     temperature: float = 0.0,
@@ -60,9 +58,8 @@ def process_data(
         model_path: 模型路径
         csv_file: 输入 CSV 文件
         prompt_format: 提示词模板
-        task_type: 任务类型 ("binary" 或 "multiclass")
-        binary_config: 二分类配置
-        multiclass_config: 多类别分类配置
+        task_type: 任务类型，用于区分NLP任务（文本分类、实体识别等），目前仅实现文本分类
+        multiclass_config: 分类配置，格式为 {"classes": [...]}
         output_file: 输出文件路径（如果为 None 则自动生成）
         temperature: 采样温度
         max_new_tokens: 最大生成 token 数
@@ -132,8 +129,7 @@ def process_data(
 
     parser = LLMParser(
         task_type=task_type,
-        binary_config=binary_config,
-        # multiclass_config=multiclass_config,
+        multiclass_config=multiclass_config,
     )
 
     # 分批处理
@@ -276,8 +272,7 @@ def main():
         csv_file=args.csv,
         prompt_format=PROMPT_FORMAT,
         task_type=TASK_TYPE,
-        binary_config=BINARY_CLASS_CONFIG,
-        # multiclass_config=MULTICLASS_CONFIG,
+        multiclass_config=MULTICLASS_CONFIG,
         output_file=args.output_file,
         temperature=args.temperature,
         max_new_tokens=args.max_new_tokens,
@@ -289,8 +284,6 @@ def main():
 if __name__ == "__main__":
     main()
 
-# python 2_sglang_batch.py --model Qwen/Qwen3-4B-Instruct-2507 --nrows 20480 --batch-size 4096
+# python 1_sglang_infer.py --model Qwen/Qwen3-4B-Instruct-2507 --nrows 20480 --batch-size 4096
+# python 1_sglang_infer.py --model Qwen/Qwen3-4B-Instruct-2507 --nrows 2048 --batch-size 512
 
-
-# python 2_sglang_batch.py --model Qwen/Qwen3-4B-Instruct-2507 --nrows 10240 --batch-size 1024
-# python 2_sglang_batch.py --model Qwen/Qwen3.5-9B --nrows 10240 --batch-size 5120

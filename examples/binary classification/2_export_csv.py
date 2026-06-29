@@ -7,7 +7,7 @@
 
 from pathlib import Path
 
-from settings import DB_PATH, BINARY_CLASS_CONFIG, TASK_TYPE
+from settings import DB_PATH, MULTICLASS_CONFIG, TASK_TYPE
 
 import sys
 
@@ -35,7 +35,7 @@ def main():
             db_path=DB_PATH,
             output_filename="llm_parsed_results.csv",
             task_type=TASK_TYPE,
-            binary_config=BINARY_CLASS_CONFIG,
+            multiclass_config=MULTICLASS_CONFIG,
             # limit=10,
             include_reason=True,
             include_errors=True,
@@ -66,4 +66,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-# python debug/LLM_API/export_csv.py --db api_cache.db --output parsed_results.csv
+# python 2_export_csv.py --db api_cache.db --output llm_parsed_results.csv
