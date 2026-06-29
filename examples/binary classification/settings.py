@@ -9,6 +9,14 @@ with open("gemini-prompt.txt", "r", encoding="utf-8") as f:
 
 PROMPT_FORMAT = prompt_template
 
+BERT_FORMAT = """
+请对以下处于待审状态的企业进行精准判定：
+- 企业名称：${企业名称}
+- 经营范围：${经营范围}
+- 预分类战新产业：战新产业二级分类名称：${战新产业二级分类名称}；战新产业三级分类名称：${战新产业三级分类名称}
+"""
+
+
 DB_PATH = "api_cache.db"
 
 # CSV 文件路径

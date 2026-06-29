@@ -3,7 +3,7 @@ python train.py \
 --train_val_csv data/train.csv \
 --output_dir=./output \
 --hf_name=google-bert/bert-base-uncased \
---num_train_epochs=10 \
+--num_train_epochs=1 \
 --eval_strategy=epoch \
 --save_strategy=epoch \
 --warmup_ratio=0.1 \

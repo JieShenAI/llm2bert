@@ -1,3 +1,4 @@
+# Prompt 1 字段调整
 
 ## 数据库字段调整
 
@@ -18,7 +19,7 @@
  'label_name': 'Sports',
  'text': "Dorman #146;s been dandy of late Revolution coach Steve Nicol is not taking credit for the emergence of Andy Dorman. But Nicol's tactical moves helped place Dorman in a position to score his first two goals as a professional, in the final seconds of a 3-0 win at Dallas Wednesday and on his first touch of Saturday night's game at D.C. United for the Revolution's second ...",
  'true_label': 1}
-```
+ ```
 我想让你参考 `1_sglang_infer.py` 对导出csv字段的处理，修改`2_export_csv.py`的代码，让其达到下述目标导出结果的效果。
 你要做如下的修改：
 1. label 改名为 llm_pred_label；
@@ -38,4 +39,14 @@
  'text': 'Singh Snares PGA Title Vijay Singh outlasts Justin Leonard and Chris DiMarco in a three-way playoff to win the PGA Championship on Sunday at Whistling Straits in Haven, Wisconsin.',
  'true_label': 1,
  'label_name': 'Sports'}
-```
+ ```
+
+
+
+# Prompt 2 大模型预测结果 split
+
+从大模型预测的结果 @examples/binary classification/llm_parsed_results.csv  中，切分出 训练集和测试集。 请你编写 @examples/multi_classification/llm_pred_split2test.py  代码，其接收一个参数 per_num_cls，该参数表每个类别的样本数量。
+
+ ``` python llm_pred_split2test.py --per_num_cls 50 ``` 
+
+该脚本运行后，会在 ./data 文件夹里面 创建 train.csv 和 test.csv。若data文件夹不存在，则自动创建。

@@ -9,6 +9,7 @@ from transformers import HfArgumentParser, TrainingArguments, Trainer
 from transformers.trainer_utils import get_last_checkpoint
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+import torch
 
 from .arguments import DataArguments, ModelArguments
 
@@ -81,6 +82,7 @@ class TrainerUtil:
                 f"train on {len(self.train_dataset)} samples, eval on {len(self.eval_dataset)} samples"
             )
             self.set_model()
+            self._init_focal_loss()
             self.set_datacollator()
             self.set_trainer()
 
@@ -143,6 +145,46 @@ class TrainerUtil:
                 data_args=self.data_args, tokenizer=self.tokenizer
             ),
             compute_metrics=compute_metrics,
+        )
+
+    def _init_focal_loss(self):
+        """若启用 Focal Loss，自动从 train_dataset 收集各类样本数并设置权重。"""
+        if not getattr(self.model_args, "use_focal_loss", False):
+            return
+
+        # 遍历数据集收集所有标签
+        labels_list = []
+        for i in range(len(self.train_dataset)):
+            item = self.train_dataset[i]
+            if isinstance(item, dict):
+                label = item.get("label") or item.get("labels")
+            elif isinstance(item, (list, tuple)):
+                label = item[1]
+            else:
+                continue
+            if label is not None:
+                labels_list.append(int(label))
+
+        if not labels_list:
+            self.logger.warning(
+                "⚠️ Focal Loss 已启用，但无法从 train_dataset 中提取标签，"
+                "将使用默认等权重（仅 gamma 聚焦效果）。"
+            )
+            return
+
+        labels_tensor = torch.tensor(labels_list)
+        num_classes = labels_tensor.max().item() + 1
+        counts = torch.zeros(num_classes, dtype=torch.float)
+        for c in range(num_classes):
+            counts[c] = (labels_tensor == c).sum().float()
+
+        self.logger.info(
+            f"📊 Class distribution (for Focal Loss): {counts.tolist()}"
+        )
+        self.model.set_class_weights_from_counts(counts)
+        self.logger.info(
+            f"⚖️  Focal Loss α weights: "
+            f"{self.model.focal_loss.alpha.tolist()}"
         )
 
     def save(self, save_model_dir):

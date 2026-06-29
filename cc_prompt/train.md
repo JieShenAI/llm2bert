@@ -73,8 +73,22 @@ self.trainer = Trainer(
 
 # prompt3 数据集样本的平衡
 
-我想在 @model.py 的SequenceClassificationModel中,使用 Focal Loss 降低容易分类的大类样本的损失权重，聚焦难分的少数类，非常适合不平衡分类。
-每个类别的权重，
+我想在 @src/llm2bert/bert_finetune/model.py  的SequenceClassificationModel 中, 使用 Focal Loss 降低容易分类的大类样本的损失权重，聚焦难分的少数类，用于应对不平衡数据集的分类。
+
+按照下述几个步骤进行：
+
+1. ModelArguments 增加 use_focal_loss: bool 参数，默认是False。若为True，则启用 FocalLoss 的计算。
+
+2. 在 model.py 中 增加 **自动根据各类样本数量计算初始权重，再配合 Focal Loss 的 γ 参数共同调节，无需手动硬写权重。**权重严格和样本反比，数学上均衡各类原始贡献；
+
+   
 
 
-TODO：给出每个类别的训练的精度、使用 FocalLoss 解决样本不均衡的训练问题；
+
+# prompt4 模型训练的csv文件导入
+
+
+
+TrainerUtilForMultiClass 的数据集的csv文件，改成从 argument参数导入。
+
+@arguments.py 的 DataArguments 增加一个 train_val_csv 参数，用于指定csv。

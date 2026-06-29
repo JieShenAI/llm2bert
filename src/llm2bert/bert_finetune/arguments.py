@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from typing import Optional
 from transformers import AutoConfig, AutoTokenizer, TrainingArguments
 
 
@@ -10,6 +11,13 @@ class ModelArguments:
 
     hf_name: str = field(
         metadata={"help": "Pre-trained model name in huggingface"}
+    )
+    use_focal_loss: bool = field(
+        default=False,
+        metadata={
+            "help": "Use Focal Loss to handle class imbalance. "
+                    "Auto-computes class weights inversely proportional to sample counts."
+        },
     )
     # num_label: int = field(default=-1, metadata={"help": "Number of labels"})
 
@@ -23,4 +31,8 @@ class DataArguments:
             "help": "The maximum total input sequence length after tokenization for passage. Sequences longer "
                     "than this will be truncated, sequences shorter will be padded."
         },
+    )
+    train_val_csv: Optional[str] = field(
+        default=None,
+        metadata={"help": "Path to the CSV file for training and validation data."},
     )
