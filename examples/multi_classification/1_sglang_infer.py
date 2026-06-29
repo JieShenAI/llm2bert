@@ -28,6 +28,7 @@ from settings import (
     TASK_TYPE,
     # BINARY_CLASS_CONFIG,
     MULTICLASS_CONFIG,
+    LLM_PREDICT_CSV_FILE,
 )
 from llm2bert.llm_api.prompt_builder import PromptBuilder
 from llm2bert.llm_api.parser import LLMParser
@@ -110,7 +111,7 @@ def process_data(
         chunked_prefill_size=8192,  # Larger chunks for better throughput
         max_total_tokens=8192,  # Limit total KV cache size
     )
-    
+
     sampling_params = {
         "temperature": temperature,
         "max_new_tokens": max_new_tokens,
@@ -152,8 +153,6 @@ def process_data(
         # binary_config=binary_config,
         multiclass_config=multiclass_config,
     )
-    
-    
 
     # 分批处理
     for i in tqdm(range(0, len(prompts), batch_size), desc="Generating"):
@@ -163,7 +162,7 @@ def process_data(
 
         batch_prompts = prompts[i : i + batch_size]
         batch_row_data = row_data_list[i : i + batch_size]
-        
+
         batch_outputs = llm.generate(
             batch_prompts,
             sampling_params=sampling_params,
@@ -252,7 +251,7 @@ def main():
     parser.add_argument(
         "--output_file",
         type=str,
-        default="llm_parsed_results.csv",
+        default=LLM_PREDICT_CSV_FILE,
         help="输出 CSV 文件路径 (默认: 自动生成)",
     )
     parser.add_argument(
@@ -302,3 +301,4 @@ if __name__ == "__main__":
     main()
 
 # python 1_sglang_infer.py --model Qwen/Qwen3-4B-Instruct-2507 --nrows 20480 --block_size 4096
+# python 1_sglang_infer.py --model Qwen/Qwen3-4B-Instruct-2507 --nrows 4096 --block_size 2048

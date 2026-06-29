@@ -14,6 +14,8 @@ PROMPT_FORMAT = """
         "llm_answer": "类别名",
     }
     """.strip()
+    
+BERT_FORMAT = "Classify the following text: ${text}"
 
 DB_PATH = "api_cache.db"
 
@@ -22,6 +24,8 @@ CSV_FILE = "train.csv"
 
 # 多类别分类配置 (TASK_TYPE = "multiclass" 时使用)
 TASK_TYPE = "multiclass"
+
+LLM_PREDICT_CSV_FILE = "llm_parsed_results.csv"
 
 MULTICLASS_CONFIG = {
     "classes": ["World", "Sports", "Business", "Sci/Tech"],  # 在此处填入所有类别名称

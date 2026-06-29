@@ -55,6 +55,69 @@ KeyError: '/loky-109805-we4l2lc5'
 
 遇到了 KeyError: '/loky-109805-we4l2lc5' 的报错，我选择忽略，程序运行正常，这个报错对结果没有影响。
 
+## 配置文件（settings.py）
+
+项目使用 `settings.py` 统一管理任务配置，无需在命令行参数中重复指定。配置项如下：
+
+```python
+# 提示词模板
+PROMPT_FORMAT = """
+    把下述给定的文本分类到以下类别中：['World', 'Sports', 'Business', 'Sci/Tech']。
+    待分类文本: ${text}
+    按照下述格式返回，要输出完整的json格式的数据：
+    {
+        "reason": "简要说明为什么将文本分类到该类别中",
+        "llm_answer": "类别名",
+    }
+    """.strip()
+
+# CSV 数据文件
+CSV_FILE = "train.csv"
+
+# 任务类型：二分类 "binary" 或 多类别分类 "multiclass"
+TASK_TYPE = "multiclass"
+
+# 多类别分类的类别列表
+MULTICLASS_CONFIG = {
+    "classes": ["World", "Sports", "Business", "Sci/Tech"],
+}
+
+# 二分类配置（TASK_TYPE = "binary" 时使用）
+# BINARY_CLASS_CONFIG = {
+#     "positive_label": "是",
+#     "negative_label": "否",
+# }
+```
+
+### 各字段说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `PROMPT_FORMAT` | 提示词模板，`${列名}` 会被替换为 CSV 中对应列的值 |
+| `CSV_FILE` | 输入数据文件路径 |
+| `TASK_TYPE` | 任务类型，`"binary"` 为二分类，`"multiclass"` 为多类别分类 |
+| `MULTICLASS_CONFIG` | 多类别分类的类别列表，`classes` 顺序决定了数字 label 的映射顺序 |
+| `BINARY_CLASS_CONFIG` | 二分类配置，指定正负类别的文本值（仅在 `TASK_TYPE = "binary"` 时需要） |
+
+### 修改提示词模板
+
+`PROMPT_FORMAT` 中的 `${text}` 是占位符，运行时会被 CSV 文件中 `text` 列的实际值替换。如果 CSV 列名不同（如 `content`、`sentence`），相应修改占位符即可：
+
+```python
+PROMPT_FORMAT = "请将以下文本分类：${content} ..."
+```
+
+### 适配不同分类任务
+
+修改 `MULTICLASS_CONFIG.classes` 即可适配任意的多类别分类任务，类别顺序决定了最终 CSV 中 `llm_pred_label` 的数字编号：
+
+```python
+MULTICLASS_CONFIG = {
+    "classes": ["positive", "negative", "neutral"],  # 三分类情感分析
+}
+# "positive" → label 0, "negative" → label 1, "neutral" → label 2
+```
+
 ## 参数介绍
 
 ```sh
@@ -64,26 +127,23 @@ python 1_sglang_infer.py \
 --block_size 4096
 ```
 
-- --model： 开源模型名，默认与 huggingface 的模型名保持一致，当然也可以使用大模型的绝对地址；选择 Qwen/Qwen3-4B-Instruct-2507 是考虑到它是指令模型，遵循指令结构化输出能力强，且没有思考过程能更快完成推理。
-- --nrows: 只加载nrows行表格数据，避免表格数据过多；
-- --block_size: 推理 block_size 条数据后，做一下数据保存，避免程序中途崩溃导致所有数据丢失；
+- `--model`： 开源模型名，默认与 huggingface 的模型名保持一致，当然也可以使用大模型的绝对地址；选择 Qwen/Qwen3-4B-Instruct-2507 是考虑到它是指令模型，遵循指令结构化输出能力强，且没有思考过程能更快完成推理。
+- `--nrows`: 只加载 nrows 行表格数据，避免表格数据过多；
+- `--block_size`: 推理 block_size 条数据后，做一下数据保存，避免程序中途崩溃导致所有数据丢失；
 
-根据不同的任务修改：`task_type` 与 `multiclass_config`。`binary_config` 与  `multiclass_config` 同时只能由一个有效。
+以上参数与 `settings.py` 中的配置共同发挥作用——`settings.py` 管理任务本身的配置（提示词、分类标签），命令行参数管理执行层面的配置（模型、批大小）。脚本通过导入 `settings.py` 获取 PROMPT_FORMAT、TASK_TYPE、MULTICLASS_CONFIG 等配置：
 
 ```python
+from settings import PROMPT_FORMAT, CSV_FILE, TASK_TYPE, MULTICLASS_CONFIG
+
 process_data(
-        model_path=args.model,
-        csv_file=args.csv,
-        prompt_format=PROMPT_FORMAT,
-        task_type=TASK_TYPE,
-        # binary_config=BINARY_CLASS_CONFIG,
-        multiclass_config=MULTICLASS_CONFIG,
-        output_file=args.output_file,
-        temperature=args.temperature,
-        max_new_tokens=args.max_new_tokens,
-        batch_size=args.block_size,
-        nrows=args.nrows,
-    )
+    model_path=args.model,
+    csv_file=args.csv,
+    prompt_format=PROMPT_FORMAT,
+    task_type=TASK_TYPE,
+    multiclass_config=MULTICLASS_CONFIG,
+    ...
+)
 ```
 
 

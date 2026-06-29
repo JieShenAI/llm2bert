@@ -7,7 +7,7 @@
 
 from pathlib import Path
 
-from settings import DB_PATH, MULTICLASS_CONFIG, TASK_TYPE
+from settings import DB_PATH, MULTICLASS_CONFIG, TASK_TYPE, LLM_PREDICT_CSV_FILE
 
 import sys
 
@@ -33,7 +33,7 @@ def main():
     try:
         output_path = parse_and_export_from_db(
             db_path=DB_PATH,
-            output_filename="llm_parsed_results.csv",
+            output_filename=LLM_PREDICT_CSV_FILE,
             task_type=TASK_TYPE,
             multiclass_config=MULTICLASS_CONFIG,
             # limit=10,

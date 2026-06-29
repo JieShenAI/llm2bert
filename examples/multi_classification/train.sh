@@ -1,0 +1,12 @@
+python train.py \
+--do_train \
+--output_dir=./output \
+--hf_name=google-bert/bert-base-uncased \
+--num_train_epochs=10 \
+--eval_strategy=epoch \
+--save_strategy=epoch \
+--warmup_ratio=0.1 \
+--logging_steps=50 \
+--save_total_limit=2 \
+--report_to=tensorboard \
+--remove_unused_columns=False
