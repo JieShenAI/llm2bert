@@ -15,12 +15,9 @@ from llm2bert.llm_api.prompt_builder import PromptBuilder
 
 async def main():
     # 获取提示词
-    # with open("../../data/gemini-prompt.txt", "r", encoding="utf-8") as f:
-    #     prompt_template = f.read()
-
     builder = PromptBuilder(PROMPT_FORMAT)
-    # df = pd.read_csv(DF_PATH, nrows=10)  # 只读取前 10 行数据
-    df = pd.read_csv(CSV_FILE)  # 只读取前 10 行数据
+    # df = pd.read_csv(CSV_FILE, low_memory=False, nrows=10)  # 只读取前 10 行数据
+    df = pd.read_csv(CSV_FILE, low_memory=False, nrows=10)
     prompts_with_metadata = builder.build_prompts_with_metadata(df)
 
     client = CachedAPIClient(

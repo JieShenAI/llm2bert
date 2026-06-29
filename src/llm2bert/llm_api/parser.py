@@ -248,9 +248,10 @@ class LLMParser:
 
             result = {
                 "prompt": prompt,
+                "llm_resp": response_str,
                 "llm_answer": parsed["llm_answer"],
-                "label": parsed["label"],
                 "reason": parsed["reason"],
+                "llm_pred_label": parsed["label"],
                 "success": parsed["success"],
                 "error": parsed["error"],
             }
@@ -304,11 +305,13 @@ class LLMParser:
         for r in parsed_results:
             row = {
                 "prompt": r["prompt"],
+                "llm_resp": r["llm_resp"],
                 "llm_answer": r["llm_answer"],
-                "label": r["label"],
+                "reason": r["reason"] if include_reason else None,
+                "llm_pred_label": r["llm_pred_label"],
+                "success": r["success"],
+                "error": r["error"],
             }
-            if include_reason:
-                row["reason"] = r["reason"]
             # 添加 attr 字段
             if "attr" in r and isinstance(r["attr"], dict):
                 for key in attr_keys:

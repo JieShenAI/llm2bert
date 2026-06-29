@@ -50,9 +50,9 @@ def main():
         print(f"\n导出数据统计:")
         print(f"  总记录数: {len(df)}")
         print(f"  列名: {list(df.columns)}")
-        if "label" in df.columns:
+        if "llm_pred_label" in df.columns:
             print(f"  标签分布:")
-            label_counts = df["label"].value_counts().sort_index()
+            label_counts = df["llm_pred_label"].value_counts().sort_index()
             for label, count in label_counts.items():
                 print(f"    标签 {label}: {count} 条")
 
