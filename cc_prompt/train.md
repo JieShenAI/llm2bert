@@ -1,4 +1,4 @@
-[cc-prompt start]
+# prompt1 训练框架搭建
 
 ## 数据集代码编写
 
@@ -60,4 +60,21 @@ self.trainer = Trainer(
 
 在 @examples/multi_classification/train.py  编写新的 TrainerUtil 类继承 @src/llm2bert/bert_finetune/trainer.py  的TrainerUtil，要实现它的 set_model、set_dataset、set_datacollator的重写。
 
-[cc-prompt end]
+# prompt2 预测代码实现
+
+参考 train.sh 的实现，帮我设计 predict.sh 传递csv表格名(csv_file)、本地训练好的模型作为参数，对该表格的数据作为预测。完成相应代码的编写。
+预测的结果保存为 bert_predict_{csv_file}.csv。在原始 csv_file 所有字段的基础上增加 bert_pred_label:int 和 bert_pred_answer:str 表示类别名。
+
+反馈prompt:
+你应该使用 @TrainerUtilForMultiClass(TrainerUtil) 里面的代码实现预测，若里面没有预测代码，你需要为 TrainerUtilForMultiClass 编写预测的方法。你要使用 @src/llm2bert/bert_finetune/model.py  的 SequenceClassificationModel 模型，而不是在 @examples/multi_classification/predict.py  中使用  AutoModelForSequenceClassification
+
+反馈prompt:
+我记得 transformer的trainer有predict方法，你为什么要使用 for i in range(0, len(texts), batch_size): 。哪种方式做预测效率高
+
+# prompt3 数据集样本的平衡
+
+我想在 @model.py 的SequenceClassificationModel中,使用 Focal Loss 降低容易分类的大类样本的损失权重，聚焦难分的少数类，非常适合不平衡分类。
+每个类别的权重，
+
+
+TODO：给出每个类别的训练的精度、使用 FocalLoss 解决样本不均衡的训练问题；

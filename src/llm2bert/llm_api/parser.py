@@ -23,12 +23,8 @@ import pandas as pd
 #     # 默认配置
 #     class DefaultSettings:
 #         TASK_TYPE = "binary"
-#         BINARY_CLASS_CONFIG = {
-#             "positive_label": "是",
-#             "negative_label": "否",
-#         }
 #         MULTICLASS_CONFIG = {
-#             "classes": [],
+#             "classes": ["否", "是"],
 #         }
 #     settings = DefaultSettings()
 
@@ -39,51 +35,29 @@ class LLMParser:
     def __init__(
         self,
         task_type: Optional[str] = None,
-        binary_config: Optional[Dict[str, str]] = None,
         multiclass_config: Optional[Dict[str, List[str]]] = None,
     ):
         """
         初始化解析器
 
         Args:
-            task_type: 任务类型，"binary" 或 "multiclass"，如果为 None 则从 settings 读取
-            binary_config: 二分类配置，如果为 None 则从 settings 读取
-            multiclass_config: 多类别分类配置，如果为 None 则从 settings 读取
+            task_type: 任务类型，用于区分NLP任务（文本分类、实体识别等），目前仅实现文本分类
+            multiclass_config: 分类配置，格式为 {"classes": ["否", "是"]} 或 {"classes": ["类别A", "类别B", ...]}
         """
         self.task_type = task_type
 
-        if self.task_type == "binary":
-            if binary_config is None:
-                raise ValueError("二分类配置不能为空，请提供 binary_config")
-            else:
-                self.binary_config = binary_config
+        if multiclass_config is None:
+            raise ValueError("分类配置不能为空，请提供 multiclass_config")
+        self.multiclass_config = multiclass_config
 
-        if self.task_type == "multiclass":
-            if multiclass_config is None:
-                raise ValueError("多类别分类配置不能为空，请提供 multiclass_config")
-            else:
-                self.multiclass_config = multiclass_config
-
-        # 构建多类别分类的标签映射
+        # 构建标签映射
         self._build_label_mapping()
 
     def _build_label_mapping(self):
         """构建标签映射字典"""
-        if self.task_type == "binary":
-            self.label_to_idx = {
-                self.binary_config["positive_label"]: 1,
-                self.binary_config["negative_label"]: 0,
-            }
-            self.idx_to_label = {
-                1: self.binary_config["positive_label"],
-                0: self.binary_config["negative_label"],
-            }
-        elif self.task_type == "multiclass":
-            classes = self.multiclass_config["classes"]
-            self.label_to_idx = {label: idx for idx, label in enumerate(classes)}
-            self.idx_to_label = {idx: label for idx, label in enumerate(classes)}
-        else:
-            raise ValueError(f"不支持的任务类型: {self.task_type}")
+        classes = self.multiclass_config["classes"]
+        self.label_to_idx = {label: idx for idx, label in enumerate(classes)}
+        self.idx_to_label = {idx: label for idx, label in enumerate(classes)}
 
     @staticmethod
     def extract_json(response_str: str) -> Optional[Dict[str, Any]]:
@@ -338,7 +312,6 @@ def parse_and_export_from_db(
     db_path: str,
     output_filename: str,
     task_type: Optional[str] = None,
-    binary_config: Optional[Dict[str, str]] = None,
     multiclass_config: Optional[Dict[str, List[str]]] = None,
     limit: Optional[int] = None,
     include_reason: bool = True,
@@ -349,15 +322,14 @@ def parse_and_export_from_db(
 
     步骤：
     1. 从数据库读取出全部数据
-    2. 根据配置判断当前解析是二分类还是多类别分类，准备对应的 label 值
+    2. 根据 multiclass_config 配置准备对应的 label 值
     3. 导出 CSV，包含 prompt、llm_answer 和 label 属性
 
     Args:
         db_path: SQLite 数据库路径
         output_path: 输出 CSV 文件路径
-        task_type: 任务类型，"binary" 或 "multiclass"
-        binary_config: 二分类配置
-        multiclass_config: 多类别分类配置
+        task_type: 任务类型，用于区分NLP任务（文本分类、实体识别等），目前仅实现文本分类
+        multiclass_config: 分类配置，格式为 {"classes": [...]}
         limit: 限制读取的条数
         include_reason: 是否包含 reason 列
         include_errors: 是否包含解析失败的记录
@@ -375,7 +347,6 @@ def parse_and_export_from_db(
     # 2. 解析
     parser = LLMParser(
         task_type=task_type,
-        binary_config=binary_config,
         multiclass_config=multiclass_config,
     )
     parsed_results = parser.parse_database_records(records)
@@ -406,9 +377,8 @@ if __name__ == "__main__":
 
     parser_binary = LLMParser(
         task_type="binary",
-        binary_config={
-            "positive_label": "是",
-            "negative_label": "否",
+        multiclass_config={
+            "classes": ["否", "是"],
         },
     )
 
@@ -460,6 +430,7 @@ if __name__ == "__main__":
         db_path="api_cache.db",
         output_path="parsed_results.csv",
         task_type="binary",  # 或 "multiclass"
+        multiclass_config={"classes": ["否", "是"]},
     )
 
     print(f"结果已导出到: {output_file}")

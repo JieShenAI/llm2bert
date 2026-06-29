@@ -34,6 +34,27 @@ class ClassificationDataset(Dataset):
         return {"text": text, "label": label}
 
 
+class PredictDataset(Dataset):
+    """预测专用数据集，不需要 label 列。
+
+    与 ClassificationDataset 的主要区别：
+    - 不要求 CSV 包含 label_column，返回 dummy label=0 以满足 DiyDataCollator
+    - 适用于 trainer.predict() 场景
+    """
+
+    def __init__(self, csv_file: str, bert_format: str):
+        self.df = pd.read_csv(csv_file)
+        self.prompt_builder = PromptBuilder(bert_format)
+
+    def __len__(self):
+        return len(self.df)
+
+    def __getitem__(self, idx):
+        row = self.df.iloc[idx]
+        text = self.prompt_builder.build_prompt(row.to_dict())
+        return {"text": text, "label": 0}  # dummy label
+
+
 class DiyDataCollator(DataCollatorWithPadding):
 
     def __init__(self, data_args: DataArguments, tokenizer, **kwargs):
